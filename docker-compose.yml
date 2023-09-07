@@ -29,8 +29,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: mysecretpassword
       POSTGRES_DB: fda 
-    volumes: 
-      - .:/app - /app/node_modules
+    volumes:
+      - .:/app
     networks:
       - mynetwork  
 
