@@ -1,6 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserRegistrationDto } from './user-registration.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { UserLoginDto } from 'src/auth/user-login.dto';
 
 @Controller('user')
 export class UserController {
@@ -19,4 +21,18 @@ export class UserController {
         // Return the registered user or any appropriate response
         return registeredUser;
     }    
+    
+    @UseGuards(JwtAuthGuard)
+    @Get('protected-route')
+    async getProtectedData(@Request() req, @Body() userLoginDto: UserLoginDto) {
+      // Access the user's information from the request
+      const user = req.user;
+  
+      // Your protected route logic here
+      return {
+        message: 'This is protected data',
+        user,
+        loginInfo: userLoginDto, // Include the UserLoginDto in the response
+      };
+    }
 }

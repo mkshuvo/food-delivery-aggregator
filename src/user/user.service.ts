@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -15,8 +15,28 @@ export class UserService {
         return this.userRepository.find();
     }
 
-    // Other CRUD operations and business logic
-    // user.service.ts
+    async findById(userId: number): Promise<User | undefined> {
+        try {
+            const user = await this.userRepository.findOne({ where: { id: userId } });
+            if (!user) {
+                throw new NotFoundException('User not found');
+            }
+            return user;
+        } catch (e) {
+            throw new NotFoundException('User not found');
+        }
+    }
+    
+
+    async findByUsername(username: string): Promise<User | undefined> {
+        try {
+            const user = await this.userRepository.findOne({ where: { username } });
+            return user;
+        } catch (e) {
+            throw new Error('Error finding user by username');
+        }
+    }
+
     async register(userRegistrationDto: UserRegistrationDto): Promise<User> {
         const { username, email, password } = userRegistrationDto;
     
@@ -37,5 +57,14 @@ export class UserService {
     
         // Save the user to the database
         return await this.userRepository.save(newUser);
+      }
+
+      async findByRefreshToken(refreshToken: string) {
+        try {
+          const user = await this.userRepository.findOne({ where: { refreshToken } });
+          return user;
+        } catch (e) {
+          throw new Error('User Not found');
+        }
       }
 }
