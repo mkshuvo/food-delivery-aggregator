@@ -55,7 +55,7 @@ cd food-delivery-aggregator
 ## Install Dependencies
 `npm install`
 
-Database Configuration
+## Database Configuration
 
 Configure your database connection in docker-compose.yml.
 ```
