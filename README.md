@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/mkshuvo/food-delivery-aggregator" target="blank"><img src="https://github.com/mkshuvo/food-delivery-aggregator/fda-noodles.png" width="200" alt="Logo" /></a>
+  <a href="https://github.com/mkshuvo/food-delivery-aggregator" target="blank"><img src="https://raw.githubusercontent.com/mkshuvo/food-delivery-aggregator/master/fda-noodles.png" width="200" alt="Logo" /></a>
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
